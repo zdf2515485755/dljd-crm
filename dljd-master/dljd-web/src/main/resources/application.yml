@@ -1,0 +1,29 @@
+server:
+  port: 8081
+  tomcat:
+    uri-encoding: UTF-8
+    threads:
+      max: 800
+      min-spare: 30
+
+spring:
+  application:
+    name: dljd-web
+  profiles:
+    active: dev
+
+logging:
+  level:
+    com.zdf: debug
+    org.springframework: warn
+
+pagehelper:
+  # 指定数据库，可以不配置，pagehelper插件会自动检测数据库的类型。
+  helperDialect: mysql
+  # 分页合理化参数默认false，当该参数设置为true 时，pageNum <= 0 时，默认显示第一页，pageNum 超过 pageSize 时，显示最后一页。
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+
+mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml

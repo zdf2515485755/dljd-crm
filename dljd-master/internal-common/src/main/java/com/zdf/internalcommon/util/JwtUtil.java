@@ -17,9 +17,6 @@ import java.util.Map;
  *@Date 2024/3/25 02:25
  */
 public class JwtUtil {
-    private static final String JWT_TOKEN_TIME = "tokenTime";
-    private static final String JWT_TOKEN_NAME = "tokenName";
-    private static final String JWT_TOKEN_PASSWORD = "tokenPassword";
 
     private JwtUtil(){
     }
@@ -34,10 +31,10 @@ public class JwtUtil {
     public static String generatorToken(String userName, String userPassword)
     {
         Map<String, String> map = new HashMap<>(3);
-        map.put(JWT_TOKEN_NAME, userName);
-        map.put(JWT_TOKEN_PASSWORD, userPassword);
+        map.put(JwtConstant.JWT_TOKEN_NAME, userName);
+        map.put(JwtConstant.JWT_TOKEN_PASSWORD, userPassword);
         //Prevent generating the same token every time
-        map.put(JWT_TOKEN_TIME, Calendar.getInstance().getTime().toString());
+        map.put(JwtConstant.JWT_TOKEN_TIME, Calendar.getInstance().getTime().toString());
 
         JWTCreator.Builder builder = JWT.create();
 
@@ -56,8 +53,8 @@ public class JwtUtil {
     public static TokenResult parseToken(String token)
     {
         DecodedJWT verify = JWT.require(Algorithm.HMAC256(JwtConstant.SIGN)).build().verify(token);
-        String userName = verify.getClaim(JWT_TOKEN_NAME).asString();
-        String userPassword = verify.getClaim(JWT_TOKEN_PASSWORD).asString();
+        String userName = verify.getClaim(JwtConstant.JWT_TOKEN_NAME).asString();
+        String userPassword = verify.getClaim(JwtConstant.JWT_TOKEN_PASSWORD).asString();
 
         return TokenResult.builder()
                 .userName(userName)
