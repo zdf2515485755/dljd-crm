@@ -3,5 +3,33 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zdf.dljdweb.mapper.TuserMapper">
+    <resultMap id="userInfo" type="com.zdf.internalcommon.response.GetUserInfoResponseDto">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="login_act" jdbcType="VARCHAR" property="loginAct" />
+        <result column="login_pwd" jdbcType="VARCHAR" property="loginPwd" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="phone" jdbcType="VARCHAR" property="phone" />
+        <result column="email" jdbcType="VARCHAR" property="email" />
+        <result column="account_no_expired" jdbcType="INTEGER" property="accountNoExpired" />
+        <result column="credentials_no_expired" jdbcType="INTEGER" property="credentialsNoExpired" />
+        <result column="account_no_locked" jdbcType="INTEGER" property="accountNoLocked" />
+        <result column="account_enabled" jdbcType="INTEGER" property="accountEnabled" />
+        <result column="create_time" jdbcType="DATE" property="createTime" />
+        <result column="edit_time" jdbcType="DATE" property="editTime" />
+        <result column="last_login_time" jdbcType="DATE" property="lastLoginTime" />
+        <association property="creator" javaType="com.zdf.internalcommon.entity.TuserEntity">
+            <result column="login_act" jdbcType="VARCHAR" property="loginAct" />
+        </association>
+        <association property="editor" javaType="com.zdf.internalcommon.entity.TuserEntity">
+            <result column="login_act" jdbcType="VARCHAR" property="loginAct" />
+        </association>
+    </resultMap>
 
+    <select id="getUserInfo" resultMap="userInfo">
+        select * from t_user t1  inner join t_user t2
+            on t1.create_by = t2.id
+        inner join t_user t3
+            on t1.edit_by = t3.id
+        where t1.id = #{id}
+    </select>
 </mapper>

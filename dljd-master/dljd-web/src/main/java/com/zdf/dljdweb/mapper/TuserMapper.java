@@ -2,7 +2,9 @@ package com.zdf.dljdweb.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.zdf.internalcommon.entity.TuserEntity;
+import com.zdf.internalcommon.response.GetUserInfoResponseDto;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 /**
 * @author mrzhang
@@ -12,7 +14,14 @@ import org.apache.ibatis.annotations.Mapper;
 */
 @Mapper
 public interface TuserMapper extends BaseMapper<TuserEntity> {
-
+    /**
+     * @param id:
+     * @return GetUserInfoResponseDto
+     * @author mrzhang
+     * @description Get user info
+     * @date 2024/4/23 23:22
+     */
+    GetUserInfoResponseDto getUserInfo(@Param("id") Long id);
 }
 
 

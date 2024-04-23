@@ -6,6 +6,7 @@ package com.zdf.internalcommon.constant;
  */
 public class UserConstant {
     public static final Integer USER_STATE_NORMAL = 1;
+    public static final Integer ZERO = 0;
 
     private UserConstant(){}
 }
