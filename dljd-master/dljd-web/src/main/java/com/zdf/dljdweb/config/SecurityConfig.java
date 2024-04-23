@@ -46,7 +46,7 @@ public class SecurityConfig {
                 .cors()
                 .and()
                 .authorizeHttpRequests()
-                .mvcMatchers("/user/login", "/user/getVerityCode").permitAll()
+                .mvcMatchers("/sys/login", "/sys/getVerityCode").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .addFilterAfter(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class)

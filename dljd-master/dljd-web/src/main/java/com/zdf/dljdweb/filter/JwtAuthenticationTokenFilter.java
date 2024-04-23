@@ -10,6 +10,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.annotation.Resource;
@@ -36,12 +37,12 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String authorization = request.getHeader("Authorization");
-        if (Objects.isNull(authorization)){
+        if (Objects.isNull(authorization) || !StringUtils.hasText(authorization.trim())){
             filterChain.doFilter(request, response);
             return ;
         }
         //判断token是否非法
-        TokenResult tokenResult = JwtUtil.checkToken(authorization);
+        TokenResult tokenResult = JwtUtil.checkToken(authorization.trim());
         if (Objects.isNull(tokenResult)){
             throw new ServletException(StatusCode.TOKEN_IS_ERROR.getMessage());
         }
